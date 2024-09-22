@@ -53,6 +53,7 @@ public final class LimboConfig {
     private boolean useTitle;
     private boolean usePlayerList;
     private boolean useHeaderAndFooter;
+    private boolean logPlayersIp;
 
     private String brandName;
     private String joinMessage;
@@ -91,6 +92,7 @@ public final class LimboConfig {
 
         address = conf.node("bind").get(SocketAddress.class);
         maxPlayers = conf.node("maxPlayers").getInt();
+        logPlayersIp = conf.node("logPlayersIp").getBoolean();
         pingData = conf.node("ping").get(PingData.class);
         dimensionType = conf.node("dimension").getString("the_end");
         if (dimensionType.equalsIgnoreCase("nether")) {
@@ -199,6 +201,10 @@ public final class LimboConfig {
 
     public boolean isUseBrandName() {
         return useBrandName;
+    }
+
+    public boolean isLogPlayersIp() {
+        return logPlayersIp;
     }
 
     public boolean isUseJoinMessage() {

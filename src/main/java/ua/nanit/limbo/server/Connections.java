@@ -27,9 +27,11 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public final class Connections {
 
+    private final LimboServer server;
     private final Map<UUID, ClientConnection> connections;
 
-    public Connections() {
+    public Connections(LimboServer server) {
+        this.server = server;
         connections = new ConcurrentHashMap<>();
     }
 
@@ -43,8 +45,9 @@ public final class Connections {
 
     public void addConnection(ClientConnection connection) {
         connections.put(connection.getUuid(), connection);
+        String address = server.getConfig().isLogPlayersIp() ? connection.getAddress().toString() : "<redacted>";
         Log.info("Player %s connected (%s) [%s]", connection.getUsername(),
-                connection.getAddress(), connection.getClientVersion());
+                address, connection.getClientVersion());
     }
 
     public void removeConnection(ClientConnection connection) {
